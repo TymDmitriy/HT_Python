@@ -22,6 +22,7 @@ print(p)
 
 p = ((math.log(1+c)/-b**4)+abs(a))
 print(p)
+gh
 
 # american_date = date(2016,5,17)
 #american_date = american_date.strftime('%m,%d,%Y')
