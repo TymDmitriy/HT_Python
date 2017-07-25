@@ -1,6 +1,10 @@
 import math
 from datetime import datetime,date
 
+print("------------------------------------")
+print("Task 1-6")
+print("------------------------------------")
+
 a = 10
 b = 11
 c = 180
@@ -22,11 +26,94 @@ print(p)
 
 p = ((math.log(1+c)/-b**4)+abs(a))
 print(p)
-ghte
 
-# american_date = date(2016,5,17)
-#american_date = american_date.strftime('%m,%d,%Y')
-#europian_date = american_date
-#europian_date = europian_date.strftime('%d,%m,Y')
-#print(american_date)
-#print(europian_date)
+
+print()
+print("------------------------------------")
+print("Task 7")
+print("------------------------------------")
+
+american_date = "23.11.1092"
+print("American format date", american_date)
+lst1 = american_date.split(".")
+european_date = lst1[1] + "." + lst1[0] + "." + lst1[2]
+print("European format date:", european_date)
+
+print()
+print("Other way to solve this task")
+print()
+
+date = date(2016,1,17)
+american_date = date.strftime('%m,%d,%Y')
+european_date = date.strftime('%d,%m,%Y')
+print("American format date:", american_date)
+print("European format date:", european_date)
+
+
+print()
+print("------------------------------------")
+print("Task 8")
+print("------------------------------------")
+
+str1 = "Hello World!"
+str2 = "Hi there!"
+middle1 = len(str1)//2
+middle2 = len(str2)//2
+str3 = str2[:middle2] + str1 + str2[middle2:]
+str4 = str1[:middle1] + str3 + str1[middle1:]
+print("Результат \"ахинея получилась\":", str4)
+
+
+print()
+print("------------------------------------")
+print("Task 9")
+print("------------------------------------")
+
+words = "bill pitch goal"
+words_lst = words.split(" ")
+words_lst[1] = words_lst[1].upper()
+words_lst = " ".join(words_lst)
+print("The result: second word should be in uppercase -", words_lst)
+
+print()
+print("------------------------------------")
+print("Task 10")
+print("------------------------------------")
+
+task = "Leo Tolstoy*1828-08-28*1910-11-20"
+lst = task.split('*')
+name = lst[0]
+date1 = lst[1]
+date2 = lst[2]
+year1 = int(date1.split('-')[0])
+year2 = int(date2.split('-')[0])
+age = year2 - year1
+print("Name of the writer: %s, age %d" % (name, age))
+
+print()
+print("------------------------------------")
+print("Task 11")
+print("------------------------------------")
+
+def degree_to_radian (value):
+    rad = value * math.pi/180
+    print("Cosine of %s degree is: %.4f" % (value, math.cos(rad)))
+    return rad
+
+degree_to_radian(40)
+degree_to_radian(45)
+degree_to_radian(60)
+
+
+print("------------------------------------")
+print("Task 12")
+print("------------------------------------")
+
+n = int(input("Введите трехзначное число: "))
+def sum_numbers(n):
+    a = n % 10
+    b = n % 100//10
+    c = n // 100
+    return a+b+c
+sum = sum_numbers(n)
+print("Сумма цифр числа:", sum)
