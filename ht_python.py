@@ -109,11 +109,47 @@ print("------------------------------------")
 print("Task 12")
 print("------------------------------------")
 
-n = int(input("Введите трехзначное число: "))
-def sum_numbers(n):
-    a = n % 10
-    b = n % 100//10
-    c = n // 100
-    return a+b+c
-sum = sum_numbers(n)
-print("Сумма цифр числа:", sum)
+# n = int(input("Введите трехзначное число: "))
+# def sum_numbers(n):
+#     a = n % 10
+#     b = n % 100//10
+#     c = n // 100
+#     return a+b+c
+# sum = sum_numbers(n)
+# print("Сумма цифр числа:", sum)
+
+
+print("------------------------------------")
+print("Task 13")
+print("------------------------------------")
+
+def square_perimeter_rectangle (a,b):
+    rectangal_square = 1/2*a*b
+    hypotenuse = math.sqrt(a ** 2 + b ** 2)
+    rectangal_perimeter = hypotenuse+a+b
+    return rectangal_square, rectangal_perimeter
+
+s, p = square_perimeter_rectangle(4,10)
+print("Площадь прямого треугольника равна: %.2a\nПериметр прямого треугольника равен: %s" % (s, round(p,2)))
+
+print("------------------------------------")
+print("Task 14")
+print("------------------------------------")
+
+number = int(input("Введите число: "))
+def even(n):
+    if n%2:
+        return False
+    else:
+        return True
+d = even(number)
+if even(d):
+    print("%d isn't even" % number)
+else:
+    print("%d is even" % number)
+
+
+print("------------------------------------")
+print("Task 15")
+print("------------------------------------")
+
