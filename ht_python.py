@@ -218,26 +218,26 @@ from datetime import datetime,date
 #
 # result = quadratic_equation(a,b,c)
 # print("\nFor current quadratic_equation:", result)
-
-print("------------------------------------")
-print("Task 18")
-print("------------------------------------")
-
-symbol1 = ord(input("Please write first symbol: "))
-symbol2 = ord(input("Please write second symbol: "))
-
-def total_sum_symbols (a, b):
-    symb_sum = 0
-    for i in range (a,b+1):
-        symb_sum += i
-    print("Total sum of Unicode is: ", symb_sum)
-
-
-if symbol1 <= symbol2:
-    total_sum_symbols(symbol1, symbol2)
-else:
-    total_sum_symbols(symbol2, symbol1)
-
+#
+# print("------------------------------------")
+# print("Task 18")
+# print("------------------------------------")
+#
+# symbol1 = ord(input("Please write first symbol: "))
+# symbol2 = ord(input("Please write second symbol: "))
+#
+# def total_sum_symbols (a, b):
+#     symb_sum = 0
+#     for i in range (a,b+1):
+#         symb_sum += i
+#     print("Total sum of Unicode is: ", symb_sum)
+#
+#
+# if symbol1 <= symbol2:
+#     total_sum_symbols(symbol1, symbol2)
+# else:
+#     total_sum_symbols(symbol2, symbol1)
+#
 print("------------------------------------")
 print("Task 19")
 print("------------------------------------")
@@ -251,84 +251,85 @@ def search_of_arithmetic_mean (range_num, random_num):
     total_sum = 0
     for i in range(range_num):
         number = random.randint(0, random_num)
+        print(number)
         total_sum += number
-    arithmetic_mean = total_sum/2
+    arithmetic_mean = total_sum/range_num
     return arithmetic_mean
 
 # result = (search_of_arithmetic_mean(range_num, random_num))
-# print("The arithmetic mean for %d randomly generated numbers between 0 and %d is: %.2f" % (range_num, random_num, search_of_arithmetic_mean(range_num, random_num)))
+print("The arithmetic mean for %d randomly generated numbers between 0 and %d is: %.2f" % (range_num, random_num, search_of_arithmetic_mean(range_num, random_num)))
 
 
-print("------------------------------------")
-print("Task 20")
-print("------------------------------------")
-
-lst_begin = int(input("Enter lower bound of your list: "))
-lst_end = int(input("Enter upper bound of your list: "))
-
-def difference_between_odds_evens (lst_begin, lst_end):
-    lst = list(range(lst_begin,lst_end+1))
-    print(lst)
-    odds_sum = 0
-    even_sum = 0
-    for i in range (lst_begin, lst_end+1):
-        if i%2==0:
-            even_sum += i
-        else:
-            odds_sum += i
-    return even_sum-odds_sum
-
-print(difference_between_odds_evens (lst_begin, lst_end))
-
-print("------------------------------------")
-print("Task 21")
-print("------------------------------------")
-
-def is_included (numbers, basis):
-    while numbers >=1:
-        digit = numbers%10
-        if digit == basis:
-            return True
-        numbers //= 10
-    return False
-
-numbers = 1000
-digits1 = 1
-digits2 = 7
-
-for i in range(1,numbers+1):
-    if is_included(i,digits1) and is_included(i,digits2):
-        print (i)
-
-print("------------------------------------")
-print("Task 22")
-print("------------------------------------")
-
-def sum_exponentiation (number=3,boundary_value=1000000):
-    sum_number = 0
-    i = 0
-    while sum_number < boundary_value:
-        sum1 = number**i
-        i += 1
-        if sum1 <= boundary_value:
-            sum_number += sum1
-        else:
-            break
-    return sum_number
-
-print("Total sum of numbers, which are a power of 3 is:", sum_exponentiation())
-
-print("------------------------------------")
-print("Task 23")
-print("------------------------------------")
-
-def max_digit_in_number ():
-    lst = random.randint(1000000000000, 9999999999999)
-    print(lst)
-    max_number = max([int(i) for i in str(lst)])
-    return max_number, lst
-
-print("Max digit is %d in value %d" % max_digit_in_number())
+# print("------------------------------------")
+# print("Task 20")
+# print("------------------------------------")
+#
+# lst_begin = int(input("Enter lower bound of your list: "))
+# lst_end = int(input("Enter upper bound of your list: "))
+#
+# def difference_between_odds_evens (lst_begin, lst_end):
+#     lst = list(range(lst_begin,lst_end+1))
+#     print(lst)
+#     odds_sum = 0
+#     even_sum = 0
+#     for i in range (lst_begin, lst_end+1):
+#         if i%2==0:
+#             even_sum += i
+#         else:
+#             odds_sum += i
+#     return even_sum-odds_sum
+#
+# print(difference_between_odds_evens (lst_begin, lst_end))
+#
+# print("------------------------------------")
+# print("Task 21")
+# print("------------------------------------")
+#
+# def is_included (numbers, basis):
+#     while numbers >=1:
+#         digit = numbers%10
+#         if digit == basis:
+#             return True
+#         numbers //= 10
+#     return False
+#
+# numbers = 1000
+# digits1 = 1
+# digits2 = 7
+#
+# for i in range(1,numbers+1):
+#     if is_included(i,digits1) and is_included(i,digits2):
+#         print (i)
+#
+# print("------------------------------------")
+# print("Task 22")
+# print("------------------------------------")
+#
+# def sum_exponentiation (number=3,boundary_value=1000000):
+#     sum_number = 0
+#     i = 0
+#     while sum_number < boundary_value:
+#         sum1 = number**i
+#         i += 1
+#         if sum1 <= boundary_value:
+#             sum_number += sum1
+#         else:
+#             break
+#     return sum_number
+#
+# print("Total sum of numbers, which are a power of 3 is:", sum_exponentiation())
+#
+# print("------------------------------------")
+# print("Task 23")
+# print("------------------------------------")
+#
+# def max_digit_in_number ():
+#     lst = random.randint(10**11, 10**12-1)
+#     print(lst)
+#     max_number = max([int(i) for i in str(lst)])
+#     return max_number, lst
+#
+# print("Max digit is %d in value %d" % max_digit_in_number())
 
 # print("------------------------------------")
 # print("Task 24")
