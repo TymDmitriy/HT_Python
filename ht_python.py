@@ -238,26 +238,26 @@ from datetime import datetime,date
 # else:
 #     total_sum_symbols(symbol2, symbol1)
 #
-print("------------------------------------")
-print("Task 19")
-print("------------------------------------")
-
-
-range_num = int(input("Enter number of random numbers: "))
-random_num = int(input("Enter the maximum value for the range: "))
-
-
-def search_of_arithmetic_mean (range_num, random_num):
-    total_sum = 0
-    for i in range(range_num):
-        number = random.randint(0, random_num)
-        print(number)
-        total_sum += number
-    arithmetic_mean = total_sum/range_num
-    return arithmetic_mean
-
-# result = (search_of_arithmetic_mean(range_num, random_num))
-print("The arithmetic mean for %d randomly generated numbers between 0 and %d is: %.2f" % (range_num, random_num, search_of_arithmetic_mean(range_num, random_num)))
+# print("------------------------------------")
+# print("Task 19")
+# print("------------------------------------")
+#
+#
+# range_num = int(input("Enter number of random numbers: "))
+# random_num = int(input("Enter the maximum value for the range: "))
+#
+#
+# def search_of_arithmetic_mean (range_num, random_num):
+#     total_sum = 0
+#     for i in range(range_num):
+#         number = random.randint(0, random_num)
+#         print(number)
+#         total_sum += number
+#     arithmetic_mean = total_sum/range_num
+#     return arithmetic_mean
+#
+# # result = (search_of_arithmetic_mean(range_num, random_num))
+# print("The arithmetic mean for %d randomly generated numbers between 0 and %d is: %.2f" % (range_num, random_num, search_of_arithmetic_mean(range_num, random_num)))
 
 
 # print("------------------------------------")
@@ -331,7 +331,64 @@ print("The arithmetic mean for %d randomly generated numbers between 0 and %d is
 #
 # print("Max digit is %d in value %d" % max_digit_in_number())
 
-# print("------------------------------------")
-# print("Task 24")
-# print("------------------------------------")
+print("------------------------------------")
+print("Task 24")
+print("------------------------------------")
 
+print("Я загадал число от 1 до 10! Попробуйте угадать!")
+
+random_num= random.randint(1, 10)
+while True:
+    choice = int(input("Введите ваше число:"))
+    if 1 <= choice <= 10:
+        if choice == random_num:
+            print("Вы угадали! Поздравляю.")
+            break
+        elif choice > random_num:
+            print("Направильный ответ, загаданное число меньше")
+        elif choice < random_num:
+            print("Направильный ответ, загаданное число больше")
+
+    else:
+        print("Не правильное значение, необходимо указать цифру от 1 до 10")
+
+
+print("------------------------------------")
+print("Task 25")
+print("------------------------------------")
+
+def factorial(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+print(factorial(3))
+
+print("------------------------------------")
+print("Task 26")
+print("------------------------------------")
+
+def simple_numbers (number):
+    if not number % 2 and number // 2 != 1:
+        return False
+    elif not number % 3 and number // 3 != 1:
+        return False
+    elif not number % 5 and number // 5 != 1:
+        return False
+    elif not number % 7 and number // 7 != 1:
+        return False
+    else:
+        return True
+
+start_digit = 1
+end_digit = 100
+print ("Все простые числа от %d до %d :" %(start_digit, end_digit))
+
+for i in range(start_digit, end_digit):
+    if simple_numbers(i):
+        print (i)
+
+# print("------------------------------------")
+# print("Task 27")
+# print("------------------------------------")
