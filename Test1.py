@@ -117,6 +117,7 @@ def is_perfect_number(n):
     else:
         return False
 
+
 print(is_perfect_number(496))
 print(is_perfect_number(7497))
 
