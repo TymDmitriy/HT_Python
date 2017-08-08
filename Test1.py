@@ -1,5 +1,6 @@
 import random, math
 from decimal import *
+import numpy as np, pprint
 
 # print("------------------------------------")
 # print("Task 1-3")
@@ -117,7 +118,24 @@ def is_perfect_number(n):
     else:
         return False
 
-
 print(is_perfect_number(496))
 print(is_perfect_number(7497))
+
+print("------------------------------------")
+print("Task 10")
+print("------------------------------------")
+
+matrix = np.array([[0, 1, 2],
+              [4, 5, 6],
+              [7, 8, 9],
+              [10, 11, 12],
+              [13, 14, 15],
+              [16, 17, 18],
+              [19, 20, 21],
+              [22, 23, 24]])
+
+transpose_matrix = matrix.transpose()
+
+pprint.pprint(matrix)
+pprint.pprint(transpose_matrix)
 
