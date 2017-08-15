@@ -1,6 +1,7 @@
 import math, random
 from datetime import datetime,date
-#
+from random import shuffle
+
 # print("------------------------------------")
 # print("Task 1-6")
 # print("------------------------------------")
@@ -330,65 +331,136 @@ from datetime import datetime,date
 #     return max_number, lst
 #
 # print("Max digit is %d in value %d" % max_digit_in_number())
+#
+# print("------------------------------------")
+# print("Task 24")
+# print("------------------------------------")
+#
+# print("Я загадал число от 1 до 10! Попробуйте угадать!")
+#
+# random_num= random.randint(1, 10)
+# while True:
+#     choice = int(input("Введите ваше число:"))
+#     if 1 <= choice <= 10:
+#         if choice == random_num:
+#             print("Вы угадали! Поздравляю.")
+#             break
+#         elif choice > random_num:
+#             print("Направильный ответ, загаданное число меньше")
+#         elif choice < random_num:
+#             print("Направильный ответ, загаданное число больше")
+#
+#     else:
+#         print("Не правильное значение, необходимо указать цифру от 1 до 10")
+#
+#
+# print("------------------------------------")
+# print("Task 25")
+# print("------------------------------------")
+#
+# def factorial(n):
+#     result = 1
+#     for i in range(1, n + 1):
+#         result *= i
+#     return result
+#
+# print(factorial(3))
+#
+# print("------------------------------------")
+# print("Task 26")
+# print("------------------------------------")
+#
+# def simple_numbers (number):
+#     if not number % 2 and number // 2 != 1:
+#         return False
+#     elif not number % 3 and number // 3 != 1:
+#         return False
+#     elif not number % 5 and number // 5 != 1:
+#         return False
+#     elif not number % 7 and number // 7 != 1:
+#         return False
+#     else:
+#         return True
+#
+# start_digit = 1
+# end_digit = 100
+# print ("Все простые числа от %d до %d :" %(start_digit, end_digit))
+#
+# for i in range(start_digit, end_digit):
+#     if simple_numbers(i):
+#         print (i)
 
 print("------------------------------------")
-print("Task 24")
+print("Task 27")
 print("------------------------------------")
 
-print("Я загадал число от 1 до 10! Попробуйте угадать!")
+def odd_numbers (n):
+    list =[]
+    for i in range (0,n):
+        if i%2 !=0:
+            list.append(i)
+    return list
+odds_list = odd_numbers(100)
+odd_str = " ".join([str(c) for c in odds_list])
+print(odd_str)
 
-random_num= random.randint(1, 10)
-while True:
-    choice = int(input("Введите ваше число:"))
-    if 1 <= choice <= 10:
-        if choice == random_num:
-            print("Вы угадали! Поздравляю.")
-            break
-        elif choice > random_num:
-            print("Направильный ответ, загаданное число меньше")
-        elif choice < random_num:
-            print("Направильный ответ, загаданное число больше")
-
-    else:
-        print("Не правильное значение, необходимо указать цифру от 1 до 10")
-
+random_odds_list = [odds_list for odds_list in range(100) if odds_list % 2 != 0]
+shuffle(random_odds_list)
+random_odds_str = " ".join([str(a) for a in random_odds_list])
+print(random_odds_str)
 
 print("------------------------------------")
-print("Task 25")
+print("Task 28")
 print("------------------------------------")
 
-def factorial(n):
-    result = 1
-    for i in range(1, n + 1):
-        result *= i
-    return result
+lst1=([random.randint(0,5) for i in range(5)])
+lst2=([random.randint(0,5) for i in range(5)])
+print("Первый список: %s" % (" ".join([str(c) for c in lst1])))
+print("Второй список: %s" % (" ".join([str(c) for c in lst2])))
 
-print(factorial(3))
+avg_lst1 = sum(lst1)/len(lst1)
+avg_lst2 = sum(lst2)/len(lst2)
+print(avg_lst1)
+print(avg_lst2)
+
+if avg_lst1 > avg_lst2:
+    print("Среднее арифметическое списка один больше среднего арифметического списка два")
+elif avg_lst1 < avg_lst2:
+    print("Среднее арифметическое списка один меньше среднего арифметического списка два")
+elif avg_lst1 == avg_lst2:
+    print("Среднее арифметическое списка один равно среднему арифметическому списка два")
 
 print("------------------------------------")
-print("Task 26")
+print("Task 29")
 print("------------------------------------")
 
-def simple_numbers (number):
-    if not number % 2 and number // 2 != 1:
-        return False
-    elif not number % 3 and number // 3 != 1:
-        return False
-    elif not number % 5 and number // 5 != 1:
-        return False
-    elif not number % 7 and number // 7 != 1:
-        return False
-    else:
-        return True
+lst = ([random.randint(-1, 1) for i in range(11)])
+print("Строка случайных целых чисел: %s" % (", ".join([str(i) for i in lst])))
 
-start_digit = 1
-end_digit = 100
-print ("Все простые числа от %d до %d :" %(start_digit, end_digit))
+if (lst.count(-1) > lst.count(0)) and (lst.count(-1) > lst.count(1)):
+    print("Чащего всего в списке встречается число: -1")
+elif (lst.count(0) > lst.count(-1)) and (lst.count(0) > lst.count(1)):
+    print("Чащего всего в списке встречается число: 0")
+elif (lst.count(1) > lst.count(-1)) and (lst.count(1) > lst.count(0)):
+    print("Чащего всего в списке встречается число: 1")
+else:
+    print()
 
-for i in range(start_digit, end_digit):
-    if simple_numbers(i):
-        print (i)
+print("------------------------------------")
+print("Task 30")
+print("------------------------------------")
+
+def encrypt_text(input_str):
+    crypto_table = [chr(i) for i in range(ord('A'), ord('z') + 1)] + [chr(i) for i in range(ord("А"), ord("я")+1)] + [chr(i) for i in range(ord(' '), ord('?') + 1)]
+    encrypted_text = []
+    for i in input_str:
+        char_id = (crypto_table.index(i) + 5) % len(crypto_table)
+        encrypted_text.append(crypto_table[char_id])
+    return encrypted_text
+
+user_input = input("Введите произвольную строку символов: ")
+print("Зашифрованная введнная строка: ", "".join(encrypt_text(user_input)))
 
 # print("------------------------------------")
-# print("Task 27")
+# print("Task 31")
 # print("------------------------------------")
