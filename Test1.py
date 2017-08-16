@@ -90,52 +90,123 @@ import numpy as np, pprint
 # lst=[round(i/max([abs(i) for i in random_lst]), 3) for i in random_lst]
 # lst.sort()
 # print("Нормированный массив:",lst)
+#
+# print("------------------------------------")
+# print("Task 6 New")
+# print("------------------------------------")
+#
+# def is_perfect(n):
+#     s = Decimal(1)
+#     p = Decimal(2)
+#     while p < n.sqrt():
+#         if n % p == 0:
+#             s += p
+#             if p != n/p:
+#                 s += n/p
+#         p += 1
+#     return s == n
+#
+# print(is_perfect(Decimal('496')))
+#
+# def is_perfect_number(n):
+#     s = 0
+#     for j in range(1, n):
+#         if n % j == 0:
+#             s += j
+#     if s == n:
+#         return True
+#     else:
+#         return False
+#
+# print(is_perfect_number(496))
+# print(is_perfect_number(7497))
+
+# print("------------------------------------")
+# print("Task 10")
+# print("------------------------------------")
+#
+# import numpy as np, pprint
+# matrix = np.array([[0, 1, 2],
+#               [4, 5, 6],
+#               [7, 8, 9],
+#               [10, 11, 12],
+#               [13, 14, 15],
+#               [16, 17, 18],
+#               [19, 20, 21],
+#               [22, 23, 24]])
+#
+# transpose_matrix = matrix.transpose()
+#
+# pprint.pprint(matrix)
+# pprint.pprint(transpose_matrix)
+#
+print("------------------------------------")
+print("Task 11")
+print("------------------------------------")
+
+matrix = []
+numb_of_columns_horiz = 3
+numb_of_colums_ver = 5
+
+def create_matrix (matrix, numb_of_columns_horiz, numb_of_colums_ver):
+    for i in range(numb_of_colums_ver):
+        columns_horiz = []
+        for x in range(numb_of_columns_horiz):
+            numb = random.randrange(5)
+            columns_horiz.append(numb)
+        matrix.append(columns_horiz)
+    return matrix
+
+def transpose_matrix(matrix):
+    return [[matrix[i][j] for i in range(len(matrix))] for j in range(len(matrix[0]))]
+
+def print_matrix(matrix):
+    for i in range(len(matrix)):
+        for j in matrix[i]:
+            print(j, end="\t")
+        print()
+
+def sort (matrix):
+    for i in range (len(matrix)):
+        if i % 2:
+            matrix[i].sort()
+        else:
+            matrix[i].sort(reverse=True)
+    return matrix
+
+
+original_matrix = create_matrix(matrix, numb_of_columns_horiz, numb_of_colums_ver)
+original_matrix1 = np.array(original_matrix)
+transpose_matrix1 = original_matrix1.transpose()
+print(transpose_matrix1)
+
+print("Original matrix:\n", original_matrix)
+print("Sorted matrix:")
+print_matrix(transpose_matrix(sort(original_matrix)))
 
 print("------------------------------------")
-print("Task 6 New")
+print("Task 12")
 print("------------------------------------")
 
-def is_perfect(n):
-    s = Decimal(1)
-    p = Decimal(2)
-    while p < n.sqrt():
-        if n % p == 0:
-            s += p
-            if p != n/p:
-                s += n/p
-        p += 1
-    return s == n
+lst1 = [i for i in range(2,10)]
+lst2 = [i for i in range(2,10)]
 
-print(is_perfect(Decimal('496')))
+def tasks_for_children (lst1, lst2):
+    numbers_of_tasks = 0
+    lst_of_tasks = []
+    while numbers_of_tasks < 15:
+        x = random.choice(lst1)
+        y = random.choice(lst2)
+        task1 = ("%a * %a" % (x, y))
+        task2 = ("%s * %s" % (y, x))
+        if task1 in lst_of_tasks:
+            continue
+        elif task2 in lst_of_tasks:
+            continue
+        else:
+            lst_of_tasks.append(task1)
+        numbers_of_tasks += 1
+    return lst_of_tasks
 
-def is_perfect_number(n):
-    s = 0
-    for j in range(1, n):
-        if n % j == 0:
-            s += j
-    if s == n:
-        return True
-    else:
-        return False
-
-print(is_perfect_number(496))
-print(is_perfect_number(7497))
-
-print("------------------------------------")
-print("Task 10")
-print("------------------------------------")
-
-matrix = np.array([[0, 1, 2],
-              [4, 5, 6],
-              [7, 8, 9],
-              [10, 11, 12],
-              [13, 14, 15],
-              [16, 17, 18],
-              [19, 20, 21],
-              [22, 23, 24]])
-
-transpose_matrix = matrix.transpose()
-
-pprint.pprint(matrix)
-pprint.pprint(transpose_matrix)
+print(tasks_for_children(lst1,lst2))
 
