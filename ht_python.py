@@ -460,16 +460,17 @@ from random import shuffle
 #
 # user_input = input("Введите произвольную строку символов: ")
 # print("Зашифрованная введнная строка: ", "".join(encrypt_text(user_input)))
-
+#
 print("------------------------------------")
 print("Task 31")
 print("------------------------------------")
 
 def create_password(pswd_len = 9):
-    all_symbols = ["_"] + list(random.choice(string.ascii_lowercase)) + list(random.choice(string.ascii_uppercase)) + list(random.choice(string.digits))
-    i = 0
+    all_symbols = list(random.choice(string.ascii_lowercase)) + list(random.choice(string.ascii_uppercase)) + list(random.choice(string.digits))
+    len_index = len(all_symbols)
+    i = 1
     pswd = []
-    while i < (pswd_len - 4):
+    while i < (pswd_len - len_index):
         pswd.append(random.choice(all_symbols))
         i += 1
     pswd += ["_"] + list(random.choice(string.ascii_lowercase)) + list(random.choice(string.ascii_uppercase)) + list(random.choice(string.digits))
@@ -478,7 +479,7 @@ def create_password(pswd_len = 9):
     return "".join(pswd)
 
 print("Generated password:", create_password())
-
+#
 # print("------------------------------------")
 # print("Task 32")
 # print("------------------------------------")
@@ -710,3 +711,4 @@ print("Generated password:", create_password())
 # print("------------------------------------")
 # print("Task 33")
 # print("------------------------------------")
+
