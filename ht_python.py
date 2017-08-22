@@ -465,244 +465,248 @@ print("------------------------------------")
 print("Task 31")
 print("------------------------------------")
 
-def create_password(pwd_len=8):
-    all_symbols = ["_"] + list(string.ascii_lowercase) + list(string.ascii_uppercase) + list(string.digits)
-    # print(all_symbols)
-    [random.shuffle(symbols) for symbols in [all_symbols]]
+def create_password(pswd_len = 9):
+    all_symbols = ["_"] + list(random.choice(string.ascii_lowercase)) + list(random.choice(string.ascii_uppercase)) + list(random.choice(string.digits))
+    i = 0
+    pswd = []
+    while i < (pswd_len - 4):
+        pswd.append(random.choice(all_symbols))
+        i += 1
+    pswd += ["_"] + list(random.choice(string.ascii_lowercase)) + list(random.choice(string.ascii_uppercase)) + list(random.choice(string.digits))
+    random.shuffle(pswd)
 
-    password = all_symbols[:pwd_len]
-    return "".join(password)
+    return "".join(pswd)
 
 print("Generated password:", create_password())
 
-print("------------------------------------")
-print("Task 32")
-print("------------------------------------")
-
-phone_book = [
-              {"name": "Petr", "surname": "Petrov", "age": 50, "phone_number":"+380501234567", "skype_login": "qwe"},
-              {"name": "Ivan", "surname": "Ivanov", "age": 15, "phone_number":"+380507654321", "skype_login": "asd"},
-             ]
-
-def print_entry(number, entry):
-    print ("--[ %s ]--------------------------" % number)
-    print ("| Surname:     %20s |" % entry["surname"])
-    print ("| Name:        %20s |" % entry["name"])
-    print ("| Age:         %20s |" % entry["age"])
-    print("| Phone number: %20s |" % entry["phone_number"])
-    print("| Skype:        %20s |" % entry["skype_login"])
-    print ()
-
-
-def print_phonebook():
-    print ()
-    print ()
-    print ("#########  Phone book  ##########")
-    print ()
-
-    number = 1
-    for entry in phone_book:
-        print_entry(number, entry)
-        number += 1
-
-def print_phonebook_by_age():
-    phone_book.sort(key=lambda contact: contact['age'])
-    print_phonebook()
-
-def add_entry_phonebook(surname, name, age, phone_number, skype_login):
-    entry = {}
-    entry["surname"] = surname
-    entry["name"] = name
-    entry["age"] = age
-    entry["phone_number"] = phone_number
-    entry["skype_login"] = skype_login
-    phone_book.append(entry)
-
-def printError(message):
-    print ("ERROR: %s" % message)
-
-def printInfo(message):
-    print ("INFO: %s" % message)
-
-def find_entry_name_phonebook(name):
-    idx = 1
-    found = False
-    for entry in phone_book:
-        if entry["name"] == name:
-            print_entry(idx, entry)
-            idx += 1
-            found = True
-    if not found:
-        printError("Not found!!")
-
-
-def find_entry_age_phonebook(age):
-    idx = 1
-    found = False
-    for entry in phone_book:
-        if entry["age"] == age:
-            print_entry(idx, entry)
-            idx += 1
-            found = True
-    if not found:
-        printError("Not found!!")
-
-def find_entry_phone_number(phone_number):
-    idx = 1
-    found = False
-    for contact in phone_book:
-        if contact["phone_number"] == phone_number:
-            print_entry(idx, contact)
-            idx += 1
-            found = True
-    if not found:
-        printError("Not found!!")
-
-def find_entry_skype_login(skype_login):
-    idx = 1
-    found = False
-    for contact in phone_book:
-        if contact["skype_login"] == skype_login:
-            print_entry(idx, contact)
-            idx += 1
-            found = True
-    if not found:
-        printError("Not found!!")
-
-def delete_entry_name_phonebook(name):
-    idx = 1
-    found = False
-    for contact in phone_book:
-        if contact['name'] == name:
-            print_entry(idx, contact)
-            phone_book.remove(contact)
-            idx += 1
-            found = True
-            print("This contact was removed from Phone book.")
-    if not found:
-        printError("Not found!!")
-
-def count_all_entries_in_phonebook():
-    print ("Total number of entries: ", len(phone_book))
-
-def print_avr_age():
-    total_age = 0
-    for contact in phone_book:
-        year = contact["age"]
-        total_age += year
-    avg_age = total_age // len(phone_book)
-    print('Average age is :', (avg_age))
-
-def increase_age(number_of_years):
-    for contact in phone_book:
-        contact["age"] += number_of_years
-
-def add_entry_skype_name(name):
-    idx = 1
-    found = False
-    for contact in phone_book:
-        if contact["name"] == name:
-            skype = str(input("Please enter Skype login for current user: "))
-            contact["skype_login"] = skype
-            print_entry(idx, contact)
-            found = True
-    if not found:
-        printError("Not found!!")
-
-def save_to_file():
-    pickle.dump(phone_book, open("phone_book.save", "wb"))
-    printInfo("Phonebook is saved into 'phone_book.save'")
-
-
-def load_from_file():
-    global phone_book
-    phone_book = pickle.load(open("phone_book.save", "rb"))
-    printInfo("Phonebook is loaded from 'phone_book.save'")
-
-
-def main():
-    while True:
-        user_input = ""
-        try:
-            print ()
-            print ()
-            print ()
-            print("~ Welcome to phonebook ~")
-            print("Select one of actions below:")
-            print("    1 - Print phonebook entries")
-            print("    2 - Print phonebook entries (by age)")
-            print("    3 - Add new entry")
-            print("    4 - Find entry by name")
-            print("    5 - Find entry by age")
-            print("    6 - Find entry by phone number")
-            print("    7 - Find entry by skype name")
-            print("    8 - Delete entry by name")
-            print("    9 - The number of entries in the phonebook")
-            print("    10 - Avr. age of all persons")
-            print("    11 - Increase age by num. of years")
-            print("    12 - Add Skype for existing contacts")
-            print("-----------------------------")
-            print("     s - Save to file")
-            print("     l - Load from file")
-            print("     0 - Exit")
-
-            user_input = input("Enter you choice: ")
-            choice = int(user_input)
-
-            if choice == 1:
-                print_phonebook()
-            elif choice == 2:
-                print_phonebook_by_age()
-            elif choice == 3:
-                surname = str(input("    Enter surname: "))
-                name = str(input("    Enter name: "))
-                age = int(input("    Enter age: "))
-                phone_number = str(input("    Enter a phone number (Ex. +380501234567):"))
-                skype_name = str(input("    Enter a skype name:"))
-                add_entry_phonebook(surname, name, age, phone_number, skype_name)
-            elif choice == 4:
-                name = str(input("    Enter name: "))
-                find_entry_name_phonebook(name)
-            elif choice == 5:
-                age = int(input("    Enter age: "))
-                find_entry_age_phonebook(age)
-            elif choice == 6:
-                phone_number = str(input("    Enter phone number: "))
-                find_entry_phone_number(phone_number)
-            elif choice == 7:
-                skype_name = str(input("    Enter Skype login: "))
-                find_entry_skype_login(skype_name)
-            elif choice == 8:
-                name = str(input("    Enter name: "))
-                delete_entry_name_phonebook(name)
-            elif choice == 9:
-                count_all_entries_in_phonebook()
-            elif choice == 10:
-                print_avr_age()
-            elif choice == 11:
-                nmbrs_of_years = int(input("    Enter number of years to add to current ages: "))
-                increase_age(nmbrs_of_years)
-            elif choice == 12:
-                name = str(input("    Enter name: "))
-                add_entry_skype_name(name)
-            elif choice == 0:
-                print ("Bye!")
-                break
-            else:
-                print ("Enter action within range [0..9]")
-
-        except ValueError:
-            if str(user_input) == 's':
-                save_to_file()
-            elif str(user_input) == 'l':
-                load_from_file()
-            else:
-                printError("Something went wrong. Try again...")
-
-
-if __name__ == '__main__':
-    main()
-
-print("------------------------------------")
-print("Task 33")
-print("------------------------------------")
+# print("------------------------------------")
+# print("Task 32")
+# print("------------------------------------")
+#
+# phone_book = [
+#               {"name": "Petr", "surname": "Petrov", "age": 50, "phone_number":"+380501234567", "skype_login": "qwe"},
+#               {"name": "Ivan", "surname": "Ivanov", "age": 15, "phone_number":"+380507654321", "skype_login": "asd"},
+#              ]
+#
+# def print_entry(number, entry):
+#     print ("--[ %s ]--------------------------" % number)
+#     print ("| Surname:     %20s |" % entry["surname"])
+#     print ("| Name:        %20s |" % entry["name"])
+#     print ("| Age:         %20s |" % entry["age"])
+#     print("| Phone number: %20s |" % entry["phone_number"])
+#     print("| Skype:        %20s |" % entry["skype_login"])
+#     print ()
+#
+#
+# def print_phonebook():
+#     print ()
+#     print ()
+#     print ("#########  Phone book  ##########")
+#     print ()
+#
+#     number = 1
+#     for entry in phone_book:
+#         print_entry(number, entry)
+#         number += 1
+#
+# def print_phonebook_by_age():
+#     phone_book.sort(key=lambda contact: contact['age'])
+#     print_phonebook()
+#
+# def add_entry_phonebook(surname, name, age, phone_number, skype_login):
+#     entry = {}
+#     entry["surname"] = surname
+#     entry["name"] = name
+#     entry["age"] = age
+#     entry["phone_number"] = phone_number
+#     entry["skype_login"] = skype_login
+#     phone_book.append(entry)
+#
+# def printError(message):
+#     print ("ERROR: %s" % message)
+#
+# def printInfo(message):
+#     print ("INFO: %s" % message)
+#
+# def find_entry_name_phonebook(name):
+#     idx = 1
+#     found = False
+#     for entry in phone_book:
+#         if entry["name"] == name:
+#             print_entry(idx, entry)
+#             idx += 1
+#             found = True
+#     if not found:
+#         printError("Not found!!")
+#
+#
+# def find_entry_age_phonebook(age):
+#     idx = 1
+#     found = False
+#     for entry in phone_book:
+#         if entry["age"] == age:
+#             print_entry(idx, entry)
+#             idx += 1
+#             found = True
+#     if not found:
+#         printError("Not found!!")
+#
+# def find_entry_phone_number(phone_number):
+#     idx = 1
+#     found = False
+#     for contact in phone_book:
+#         if contact["phone_number"] == phone_number:
+#             print_entry(idx, contact)
+#             idx += 1
+#             found = True
+#     if not found:
+#         printError("Not found!!")
+#
+# def find_entry_skype_login(skype_login):
+#     idx = 1
+#     found = False
+#     for contact in phone_book:
+#         if contact["skype_login"] == skype_login:
+#             print_entry(idx, contact)
+#             idx += 1
+#             found = True
+#     if not found:
+#         printError("Not found!!")
+#
+# def delete_entry_name_phonebook(name):
+#     idx = 1
+#     found = False
+#     for contact in phone_book:
+#         if contact['name'] == name:
+#             print_entry(idx, contact)
+#             phone_book.remove(contact)
+#             idx += 1
+#             found = True
+#             print("This contact was removed from Phone book.")
+#     if not found:
+#         printError("Not found!!")
+#
+# def count_all_entries_in_phonebook():
+#     print ("Total number of entries: ", len(phone_book))
+#
+# def print_avr_age():
+#     total_age = 0
+#     for contact in phone_book:
+#         year = contact["age"]
+#         total_age += year
+#     avg_age = total_age // len(phone_book)
+#     print('Average age is :', (avg_age))
+#
+# def increase_age(number_of_years):
+#     for contact in phone_book:
+#         contact["age"] += number_of_years
+#
+# def add_entry_skype_name(name):
+#     idx = 1
+#     found = False
+#     for contact in phone_book:
+#         if contact["name"] == name:
+#             skype = str(input("Please enter Skype login for current user: "))
+#             contact["skype_login"] = skype
+#             print_entry(idx, contact)
+#             found = True
+#     if not found:
+#         printError("Not found!!")
+#
+# def save_to_file():
+#     pickle.dump(phone_book, open("phone_book.save", "wb"))
+#     printInfo("Phonebook is saved into 'phone_book.save'")
+#
+#
+# def load_from_file():
+#     global phone_book
+#     phone_book = pickle.load(open("phone_book.save", "rb"))
+#     printInfo("Phonebook is loaded from 'phone_book.save'")
+#
+#
+# def main():
+#     while True:
+#         user_input = ""
+#         try:
+#             print ()
+#             print ()
+#             print ()
+#             print("~ Welcome to phonebook ~")
+#             print("Select one of actions below:")
+#             print("    1 - Print phonebook entries")
+#             print("    2 - Print phonebook entries (by age)")
+#             print("    3 - Add new entry")
+#             print("    4 - Find entry by name")
+#             print("    5 - Find entry by age")
+#             print("    6 - Find entry by phone number")
+#             print("    7 - Find entry by skype name")
+#             print("    8 - Delete entry by name")
+#             print("    9 - The number of entries in the phonebook")
+#             print("    10 - Avr. age of all persons")
+#             print("    11 - Increase age by num. of years")
+#             print("    12 - Add Skype for existing contacts")
+#             print("-----------------------------")
+#             print("     s - Save to file")
+#             print("     l - Load from file")
+#             print("     0 - Exit")
+#
+#             user_input = input("Enter you choice: ")
+#             choice = int(user_input)
+#
+#             if choice == 1:
+#                 print_phonebook()
+#             elif choice == 2:
+#                 print_phonebook_by_age()
+#             elif choice == 3:
+#                 surname = str(input("    Enter surname: "))
+#                 name = str(input("    Enter name: "))
+#                 age = int(input("    Enter age: "))
+#                 phone_number = str(input("    Enter a phone number (Ex. +380501234567):"))
+#                 skype_name = str(input("    Enter a skype name:"))
+#                 add_entry_phonebook(surname, name, age, phone_number, skype_name)
+#             elif choice == 4:
+#                 name = str(input("    Enter name: "))
+#                 find_entry_name_phonebook(name)
+#             elif choice == 5:
+#                 age = int(input("    Enter age: "))
+#                 find_entry_age_phonebook(age)
+#             elif choice == 6:
+#                 phone_number = str(input("    Enter phone number: "))
+#                 find_entry_phone_number(phone_number)
+#             elif choice == 7:
+#                 skype_name = str(input("    Enter Skype login: "))
+#                 find_entry_skype_login(skype_name)
+#             elif choice == 8:
+#                 name = str(input("    Enter name: "))
+#                 delete_entry_name_phonebook(name)
+#             elif choice == 9:
+#                 count_all_entries_in_phonebook()
+#             elif choice == 10:
+#                 print_avr_age()
+#             elif choice == 11:
+#                 nmbrs_of_years = int(input("    Enter number of years to add to current ages: "))
+#                 increase_age(nmbrs_of_years)
+#             elif choice == 12:
+#                 name = str(input("    Enter name: "))
+#                 add_entry_skype_name(name)
+#             elif choice == 0:
+#                 print ("Bye!")
+#                 break
+#             else:
+#                 print ("Enter action within range [0..9]")
+#
+#         except ValueError:
+#             if str(user_input) == 's':
+#                 save_to_file()
+#             elif str(user_input) == 'l':
+#                 load_from_file()
+#             else:
+#                 printError("Something went wrong. Try again...")
+#
+#
+# if __name__ == '__main__':
+#     main()
+#
+# print("------------------------------------")
+# print("Task 33")
+# print("------------------------------------")
