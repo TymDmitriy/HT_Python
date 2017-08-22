@@ -460,7 +460,7 @@ from random import shuffle
 #
 # user_input = input("Введите произвольную строку символов: ")
 # print("Зашифрованная введнная строка: ", "".join(encrypt_text(user_input)))
-#
+
 print("------------------------------------")
 print("Task 31")
 print("------------------------------------")
