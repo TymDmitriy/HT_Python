@@ -467,13 +467,12 @@ print("------------------------------------")
 
 def create_password(pswd_len = 9):
     all_symbols = list(random.choice(string.ascii_lowercase)) + list(random.choice(string.ascii_uppercase)) + list(random.choice(string.digits))
-    len_index = len(all_symbols)
-    i = 1
-    pswd = []
+    i = 0
+    pswd = ["_"] + all_symbols
+    len_index = len(pswd)
     while i < (pswd_len - len_index):
         pswd.append(random.choice(all_symbols))
         i += 1
-    pswd += ["_"] + list(random.choice(string.ascii_lowercase)) + list(random.choice(string.ascii_uppercase)) + list(random.choice(string.digits))
     random.shuffle(pswd)
 
     return "".join(pswd)
