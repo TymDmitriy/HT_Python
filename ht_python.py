@@ -1,6 +1,7 @@
-import math, random, string, pickle
+import math, random, string, pickle, json, requests
 from datetime import datetime,date
 from random import shuffle
+from pprint import pprint
 
 # print("------------------------------------")
 # print("Task 1-6")
@@ -461,23 +462,23 @@ from random import shuffle
 # user_input = input("Введите произвольную строку символов: ")
 # print("Зашифрованная введнная строка: ", "".join(encrypt_text(user_input)))
 
-print("------------------------------------")
-print("Task 31")
-print("------------------------------------")
-
-def create_password(pswd_len = 9):
-    all_symbols = list(random.choice(string.ascii_lowercase)) + list(random.choice(string.ascii_uppercase)) + list(random.choice(string.digits))
-    i = 0
-    pswd = ["_"] + all_symbols
-    len_index = len(pswd)
-    while i < (pswd_len - len_index):
-        pswd.append(random.choice(all_symbols))
-        i += 1
-    random.shuffle(pswd)
-
-    return "".join(pswd)
-
-print("Generated password:", create_password())
+# print("------------------------------------")
+# print("Task 31")
+# print("------------------------------------")
+#
+# def create_password(pswd_len = 9):
+#     all_symbols = list(random.choice(string.ascii_lowercase)) + list(random.choice(string.ascii_uppercase)) + list(random.choice(string.digits))
+#     i = 0
+#     pswd = ["_"] + all_symbols
+#     len_index = len(pswd)
+#     while i < (pswd_len - len_index):
+#         pswd.append(random.choice(all_symbols))
+#         i += 1
+#     random.shuffle(pswd)
+#
+#     return "".join(pswd)
+#
+# print("Generated password:", create_password())
 #
 # print("------------------------------------")
 # print("Task 32")
@@ -707,7 +708,209 @@ print("Generated password:", create_password())
 # if __name__ == '__main__':
 #     main()
 #
-# print("------------------------------------")
-# print("Task 33")
-# print("------------------------------------")
+print("------------------------------------")
+print("Task 33")
+print("------------------------------------")
 
+#------------------------------------------------------------------------------
+BASE_URL = "http://54.201.47.219:8080/api"
+VERSION  = "v1"
+URL = "%s/%s" % (BASE_URL, VERSION)
+
+#------------------------------------------------------------------------------
+def log_error(msg):
+    print("ERROR: ", msg)
+
+#------------------------------------------------------------------------------
+def get_students():
+    response = requests.get(URL + '/students')
+    result = None
+    if response.status_code == 200:
+        json_object = response.json()
+        result = json_object['students']
+    else:
+        log_error(response.content)
+
+    return result
+
+# ------------------------------------------------------------------------------
+def get_student(id):
+    response = requests.get(URL + '/students/' + str(id))
+    result = None
+    if response.status_code == 200:
+        json_object = response.json()
+        result = json_object['student']
+    else:
+        log_error(response.content)
+
+    return result
+
+#------------------------------------------------------------------------------
+def update_student(id, upd_fields):
+    response = requests.put(URL + '/students/' + str(id), json=json.dumps(upd_fields))
+    result = response.status_code == 200
+    if not result:
+        log_error(response.content)
+
+    return result
+
+#------------------------------------------------------------------------------
+def add_student(student):
+    response = requests.post(URL + '/students/', json=json.dumps(student))
+    result = response.status_code == 200
+    if not result:
+        log_error(response.content)
+
+    return result
+
+#------------------------------------------------------------------------------
+def reset():
+    response = requests.put(URL + '/reset')
+    result = response.status_code == 200
+    if not result:
+        log_error(response.content)
+
+    return result
+
+# ------------------------------------------------------------------------------
+def demo():
+    '''
+    Demonstrates fetching, updating and adding new student.
+    Resets remote DB afterwards
+    :return: None
+    '''
+
+    # available urls
+    # http://54.201.47.219:8080/api/v1/students/
+    # http://54.201.47.219:8080/api/v1/students/1025
+    # http://54.201.47.219:8080/api/v1/hw_results/
+    # http://54.201.47.219:8080/api/v1/hw_results/1025
+    # http://54.201.47.219:8080/api/v1/test1_results/
+    # http://54.201.47.219:8080/api/v1/test1_results/1025
+    # http://54.201.47.219:8080/api/v1/test1_weights/
+
+    # pprint(get_students())
+    #
+    # pprint(get_student(1024))
+    # update_student(1024, {'rank': 42})
+    # pprint(get_student(1024))
+    #
+    # add_student({"id": 1234, "fullname": "AAAA", "email": "x@y.z", "github": "", "rank": 0})
+    # pprint(get_student(1234))
+    #
+    # reset()
+    # pprint(get_students())
+    update_students_results()
+    pprint(print_students_info())
+
+# ------------------------------------------------------------------------------
+def get_test1_results():
+    response = requests.get(URL + '/test1_results/')
+    result = None
+    if response.status_code == 200:
+        json_object = response.json()
+        result = {i['id']: i['task_completion'] for i in json_object}
+    else:
+        log_error(response.content)
+
+    return result
+
+# ------------------------------------------------------------------------------
+def get_test1_weights():
+    response = requests.get(URL + '/test1_weights')
+    result = None
+    if response.status_code == 200:
+        json_object = response.json()
+        result = json_object['test1_weights']
+    else:
+        log_error(response.content)
+
+    return result
+
+# ------------------------------------------------------------------------------
+def get_hw_results():
+    response = requests.get(URL + '/hw_results')
+    result = None
+    if response.status_code == 200:
+        json_object = response.json()
+        result = {i['id']: i['task_completion'] for i in json_object}
+    else:
+        log_error(response.content)
+
+    return result
+
+# ------------------------------------------------------------------------------
+def get_student_hw_results(id):
+    response = requests.get(URL + '/hw_results/' + str(id))
+    result = None
+
+    if response.status_code == 200:
+        json_object = response.json()
+        result = json_object['task_completion']
+    else:
+        log_error(response.content)
+
+    return result
+
+# ------------------------------------------------------------------------------
+def update_students_results():
+    '''
+    Calculate student results and put them into the student dictionary under the key "rank".
+    Total rank is calculated as a sum of completed hw tasks +
+        sum of completed Test1 tasks weighted proportional to its weights.
+    For example, student with id=1025 has total rank = 1*32 + (1*1 + 1*1 + 1*1 + ... 1*15) = 68)
+    :return: None
+    '''
+    students = get_students()
+    hw_result = get_hw_results()
+    test1_results = get_test1_results()
+    test1_weights = get_test1_weights()
+    for student in students:
+        stud_id = student['id']
+        hw_rank = hw_result[stud_id]
+        test1_rank = test1_results[stud_id]
+        total_rank = sum(hw_rank)
+        for i in range(len(test1_rank)):
+            total_rank += int(test1_rank[i]) * int(test1_weights[i])
+        update_student(stud_id, {'rank': total_rank})
+
+# ------------------------------------------------------------------------------
+def print_students_info(sort_by_key="fullname"):
+    '''
+    Prints students info sorted according to the passed key in dictionary). By default, sort by students names.
+    Student info should be presented as a card that includes the following information:
+        - id,
+        - name,
+        - email,
+        - github account (only name, not URL path)
+        - rank
+    Example (format is not strictly required):
+        -----------------------------------------
+        : ID:                               1025:
+        :.......................................:
+        : Full name:                Юношев Павел:
+        : Email:          p.n.yunoshev@gmail.com:
+        : Github:                               :
+        : Rank:                               42:
+        -----------------------------------------
+    :return: None
+    '''
+    students = get_students()
+    students.sort(key=lambda student: student[sort_by_key])
+    for people in students:
+        print("_" * 50)
+        print(": ID:         %34s :" % people['id'])
+        print("-" * 50)
+        print(": Full name:  %34s :" % people['fullname'])
+        print(": Email:      %34s :" % people['email'])
+        git = people['github'].split('/')
+        if len(git) >=4:
+            print(": Github: %38s :" % git[3])
+        else:
+            print((': Github:' + ' '*6 + "Student don't have Github account :"))
+        print(": Rank:       %34s :" % people['rank'])
+        print("_"*50)
+    
+# ------------------------------------------------------------------------------
+if __name__ == "__main__":
+    demo()
